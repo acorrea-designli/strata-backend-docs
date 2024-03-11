@@ -1,0 +1,217 @@
+# ERD
+
+The ERD (Entity-Relationship Diagram) is a visual representation of the database schema. It shows the tables and the relationships between them.
+
+```plantuml Your title
+@startuml RelatableERD
+
+skinparam linetype ortho
+
+entity User  {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* email : string
+	--
+	* profileID : int
+	* userTypeID : int
+	* LoisProfileID : int
+}
+
+entity LoisProfile {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* LoisOrganizationID : int
+	* LoisUserUserTypeID : int
+	* LoisCommunities: string
+}
+
+entity Profile {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* first_name : string
+	* last_name : string
+	* full_name : string
+	phone : string
+	address : string
+	zip : string
+	city : string
+	state : string
+	country : string
+	--
+	* OrganizationID : string
+}
+
+entity Organization {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	description : string
+	* address : string
+	* zip : string
+	phone : string
+	exension : string
+	mobile : string
+	--
+	* OrganizationTypeID : int
+	* CityID : int
+}
+
+entity City {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* metadata : string
+	--
+	* countyID : int	
+}
+
+entity County {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+	--
+	* stateID : int
+}
+
+entity State {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* metadata : string
+	--
+	* countryID : int
+}
+
+entity Country {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* metadata : string
+}
+
+entity OrganizationCounties {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* OrganizationID : int
+	* CountyID : int
+}
+
+entity OrganizationType {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+}
+
+entity Role {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+	--
+	* UserID : int
+}
+
+entity UserType {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	--
+	UserID : int
+	ServiceID : int
+}
+
+entity Service {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+}
+
+entity Webhook {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* url : string
+	* path : string
+	* method : string
+	* event : string
+}
+
+entity Subscription {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* stripe_id : string
+	--
+	* SubscriptionID : int
+	* PaymentMethodID : int
+}
+
+entity PaymentMethod {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* stripe_id : string
+}
+
+entity Product {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* stripe_id : string
+}
+
+entity OnboardingStep {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+}
+
+
+Role ||--|{ User
+
+User ||--|{ Profile
+User ||--|{ LoisProfile
+User ||--|{ UserType
+
+User ||--|{ Subscription
+User ||--|{ PaymentMethod
+
+OnboardingStep ||--|{ User
+
+Profile ||--|{ Organization
+OrganizationType ||--|{ Organization
+
+Organization ||--|{ OrganizationCounties
+City ||--|{ Organization
+County ||--|{ OrganizationCounties
+
+Country ||--|{ State
+State ||--|{ County
+County ||--|{ City
+
+Subscription ||--|{ Product
+Subscription ||--|{ PaymentMethod
+
+Service ||--|{ UserType
+Service ||--|{ Product
+
+
+}
+```
