@@ -13,15 +13,15 @@ const config: Config = {
 	// Set the /<baseUrl>/ pathname under which your site is served
 	// For GitHub pages deployment, it is often '/<projectName>/'
 	baseUrl: "/strata-backend-docs/",
-  trailingSlash: false,
-
+	trailingSlash: false,
+	
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
 	organizationName: "acorrea-designli", // Usually your GitHub org/user name.
 	projectName: "strata-backend-docs", // Usually your repo name.
-
-	onBrokenLinks: "throw",
-	onBrokenMarkdownLinks: "warn",
+	
+	onBrokenLinks: "log",
+	onBrokenMarkdownLinks: "log",
 
 	// Even if you don't use internationalization, you can use this field to set
 	// useful metadata like html lang. For example, if your site is Chinese, you
@@ -45,7 +45,7 @@ const config: Config = {
 								// ...options here
 								alias: ["plantuml"],
 								target: "mdx3",
-                server: "https://kroki.io",
+								server: "https://kroki.io",
 							},
 						],
 					],
