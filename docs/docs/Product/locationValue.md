@@ -4,11 +4,6 @@ sidebar_position: 3
 
 # Represented Regions
 
-
-:::warning not yet deployed
-The following queries and mutations are under development and are not yet deployed.
-:::
-
 When the user fills the `location` input, wee should show the regions that the user can choose. when the finish selecting all regions, we can use the following mutation to set the regions to the user organization.
 
 ```graphql
