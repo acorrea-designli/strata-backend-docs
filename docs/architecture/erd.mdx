@@ -98,7 +98,7 @@ entity Country {
 	* metadata : string
 }
 
-entity OrganizationCounties {
+entity OrganizationLocation {
 	* id : int <<generated>>
 	* uuid : string
 	--
@@ -124,23 +124,6 @@ entity Role {
 	* UserID : int
 }
 
-entity UserType {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	--
-	UserID : int
-	ServiceID : int
-}
-
-entity Service {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-}
-
 entity Webhook {
 	* id : int <<generated>>
 	* uuid : string
@@ -156,9 +139,6 @@ entity Subscription {
 	* uuid : string
 	--
 	* stripe_id : string
-	--
-	* SubscriptionID : int
-	* PaymentMethodID : int
 }
 
 entity PaymentMethod {
@@ -172,7 +152,39 @@ entity Product {
 	* id : int <<generated>>
 	* uuid : string
 	--
+	* name
+	* description
+	* displayName
 	* stripe_id : string
+}
+
+entity Field {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+	--
+	* FieldTypeID : int
+	* FieldValueID : int
+}
+
+entity FieldType {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* name : string
+	* description : string
+}
+
+entity FieldValue {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* value : string
+	* description : string
+	* price : float
+	metadata : string
 }
 
 entity OnboardingStep {
@@ -183,35 +195,53 @@ entity OnboardingStep {
 	* description : string
 }
 
+entity UserSelectedProductValue { 
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* UserID : int
+	* ProductID : int
+	* FieldValueID : int
+}
 
 Role ||--|{ User
 
-User ||--|{ Profile
+User ||-right-|{ Profile
 User ||--|{ LoisProfile
-User ||--|{ UserType
 
-User ||--|{ Subscription
 User ||--|{ PaymentMethod
 
 OnboardingStep ||--|{ User
 
-Profile ||--|{ Organization
-OrganizationType ||--|{ Organization
+Profile ||-right-|{ Organization
+OrganizationType ||-up-|{ Organization
 
-Organization ||--|{ OrganizationCounties
+Organization ||-right-|{ OrganizationLocation
 City ||--|{ Organization
-County ||--|{ OrganizationCounties
 
-Country ||--|{ State
-State ||--|{ County
-County ||--|{ City
+County ||-down-|{ OrganizationLocation
+State ||--|{ OrganizationLocation
+Country ||-left-|{ OrganizationLocation
+City ||--|{ OrganizationLocation
 
-Subscription ||--|{ Product
-Subscription ||--|{ PaymentMethod
-
-Service ||--|{ UserType
-Service ||--|{ Product
+Country ||-up-|{ State
+State ||-left-|{ County
+County ||-left-|{ City
 
 
-}
+Subscription ||-up-|{ PaymentMethod
+
+Product ||-down-|{ Field
+
+FieldType ||-left-|{ Field
+FieldValue }|-right-|| Field
+
+
+User ||-left-|{ UserSelectedProductValue
+Product ||-up-|{ UserSelectedProductValue
+FieldValue ||-right-|{ UserSelectedProductValue
+
+
+Subscription ||--|{ UserSelectedProductValue
+
 ```
