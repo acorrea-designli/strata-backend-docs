@@ -23,7 +23,7 @@ mutation ResetPassword($data: ResetPasswordInput!) {
 ``` json
 {
   "data": {
-    "email": "test@test.com"
+    "email": ""
   }
 }
 ```
