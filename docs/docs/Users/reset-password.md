@@ -10,7 +10,7 @@ To reset the password of a user, you can use the `resetPassword` method. This me
 
 :::warning
 
-Since the SMTP server is not yet implemented, the `resetPassword` method will not send an email to the user. Instead, it will return the token that the user can use to reset the password.
+Since the SMTP server is not yet available, the `resetPassword` method will not send an email to the user. Instead, it will return the token that the user can use to reset the password.
 
 :::
 
