@@ -85,6 +85,12 @@ const config: Config = {
 					position: "left",
 					label: "Architecture",
 				},
+				{
+					type: "docSidebar",
+					sidebarId: "interoperabilitySidebar",
+					position: "left",
+					label: "Interoperability",
+				},
 			],
 		},
 		footer: {},
