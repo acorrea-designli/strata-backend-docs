@@ -54,7 +54,13 @@ Docusign uses OAuth 2.0 for authentication. It offers three different authentica
 > The JWT Grant flow is used when you want to authenticate as an application, not as a user. The flow is as follows:
 </Collapse>
 
-### Strata-Docusign integration flow
+## Docusign relevant endpoints
+
+- [Get envelope](https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/?explorer=true)
+- [Get documents of envelope](https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/list/?explorer=true)
+- [Get fields of document](https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/?explorer=true)
+
+## Strata-Docusign integration flow
 
 ```plantuml
 @startuml
@@ -116,3 +122,4 @@ end
 
 @enduml
 ```
+
