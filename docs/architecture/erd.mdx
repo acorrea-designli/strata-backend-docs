@@ -18,15 +18,6 @@ entity User  {
 	* LoisProfileID : int
 }
 
-entity LoisProfile {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* LoisOrganizationID : int
-	* LoisUserUserTypeID : int
-	* LoisCommunities: string
-}
-
 entity Profile {
 	* id : int <<generated>>
 	* uuid : string
@@ -98,7 +89,7 @@ entity Country {
 	* metadata : string
 }
 
-entity OrganizationLocation {
+entity OrganizationLocation #LightBlue {
 	* id : int <<generated>>
 	* uuid : string
 	--
@@ -158,35 +149,6 @@ entity Product {
 	* stripe_id : string
 }
 
-entity Field {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-	--
-	* FieldTypeID : int
-	* FieldValueID : int
-}
-
-entity FieldType {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-}
-
-entity FieldValue {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* value : string
-	* description : string
-	* price : float
-	metadata : string
-}
-
 entity OnboardingStep {
 	* id : int <<generated>>
 	* uuid : string
@@ -195,7 +157,7 @@ entity OnboardingStep {
 	* description : string
 }
 
-entity UserSelectedProductValue { 
+entity OrganizationProduct #LightBlue { 
 	* id : int <<generated>>
 	* uuid : string
 	--
@@ -204,17 +166,27 @@ entity UserSelectedProductValue {
 	* FieldValueID : int
 }
 
+entity OrganizationOnboarding #LightBlue {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* OrganizationID : int
+	* OnboardingStepID : int
+	* UserID : int
+}
+
 Role ||--|{ User
 
 User ||-right-|{ Profile
-User ||--|{ LoisProfile
 
-User ||--|{ PaymentMethod
+Organization ||-down-|{ PaymentMethod
 
-OnboardingStep ||--|{ User
+Organization ||-up-|{ OrganizationOnboarding
+OnboardingStep ||-right-|{ OrganizationOnboarding
+User ||-down-|{ OrganizationOnboarding
 
-Profile ||-right-|{ Organization
 OrganizationType ||-up-|{ Organization
+OrganizationType -l[hidden]- PaymentMethod
 
 Organization ||-right-|{ OrganizationLocation
 City ||--|{ Organization
@@ -229,19 +201,12 @@ State ||-left-|{ County
 County ||-left-|{ City
 
 
-Subscription ||-up-|{ PaymentMethod
+Subscription }|-right-|| PaymentMethod
 
-Product ||-down-|{ Field
-
-FieldType ||-left-|{ Field
-FieldValue }|-right-|| Field
+Organization ||-left-|{ OrganizationProduct
+Product ||-right-|{ OrganizationProduct
 
 
-User ||-left-|{ UserSelectedProductValue
-Product ||-up-|{ UserSelectedProductValue
-FieldValue ||-right-|{ UserSelectedProductValue
-
-
-Subscription ||--|{ UserSelectedProductValue
+Subscription ||-up-|{ OrganizationProduct
 
 ```

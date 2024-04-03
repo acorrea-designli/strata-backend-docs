@@ -29,6 +29,18 @@ query Login($data: LogInInput!) {
 ```
 
 this will return a response with the `access_token`, `refresh_token`, `id_token` and `token_type` which will be used to make requests to the api.
+
+Or making a POST request to the `/auth` endpoint with the `username` and `password`
+
+``` json
+{
+  "email": "",
+  "password": ""
+}
+
+```
+
+
 # Refreshing the token
 
 The `refresh_token` can be used to get a new `access_token` and `id_token` when the `access_token` expires. This is done by making a Query to the `refreshToken` endpoint with the `refresh_token`
@@ -48,6 +60,15 @@ query RefreshToken($refreshToken: String!) {
 {
   "refreshToken": ""
 }
+```
+
+Or making a POST request to the `/auth/token` endpoint with the `refresh_token`
+
+``` json
+{
+  "refreshToken": ""
+}
+
 ```
 
 # Making requests
