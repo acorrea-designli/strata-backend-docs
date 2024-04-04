@@ -7,30 +7,25 @@ sidebar_position: 1
 The onboarding steps uuid can be found in the following query.
 
 ``` graphql
-query getAllOnboardingSteps {
-    findAllOnboardingSteps {
-        items {
-            name
-            uuid
-            description
-        }
+query FindAllOnboardingSteps($options: FilterDto) {
+  findAllOnboardingSteps(options: $options) {
+    items {
+      uuid
+      name
+      description
     }
+  }
 }
 ```
 :::info
 
-Currently there are 5 steps in the onboarding process. The steps are as follows:
+Currently there are 6 steps in the onboarding process. The steps are as follows:
 
-	- products selector
-	- credentials
-	- subscription
-	- payment
-	- users
-
-:::
-
-:::warning
-
-A new step may be added in the future, to handle the users onboarding process finalization.
+	- created
+	- price quoted
+	- pending signature
+	- signed
+	- pending payment
+	- completed
 
 :::

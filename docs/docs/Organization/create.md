@@ -4,42 +4,66 @@ The organization can be created using the following mutation.
 
 
 ``` graphql
-mutation CreateOrganization {
-    createOrganization(data: $data
-        
-    ) {
-        uuid
-        createdAt
-        updatedAt
-        name
-        address
-        phone
-        mobile
-        extension
-        description
+mutation NewOrganization($data: NewOrganizationInput!) {
+  newOrganization(data: $data) {
+    uuid
+    createdAt
+    updatedAt
+    subscriberFirstName
+    subscriberLastName
+    subscriberTitle
+    subscriberEmail
+    subscriberPhone
+    organizationName
+    organizationDescription
+    address
+    city {
+      name
     }
+    organizationType {
+      name
+    }
+    organizationOnboardings {
+      items {
+        user {
+          email
+        }
+        createdAt
+        onboardingStep {
+          name
+        }
+        updatedAt
+        uuid
+      }
+    }
+  }
 }
 ```
 
 ``` json
 {
-    "data": {
-        "city": { 
-            "uuid": "" 
-        },
-        "profile": { 
-            "uuid": "" 
-        },
-        "name": "",
-        "address": "",
-        "phone": "",
-        "mobile": "",
-        "extension": "",
-        "description": ""
-    }
+  "data": {
+    "address": "",
+    "organizationDescription": "",
+    "organizationName": "",
+    "subscriberEmail": "",
+    "subscriberFirstName": "",
+    "subscriberLastName": "",
+    "subscriberPhone": "",
+    "subscriberTitle": "",
+    "user": {
+      "uuid": ""
+    },
+    "city": {
+      "uuid": ""
+    },
+    "organizationType": {
+      "uuid": ""
+    },
+  }
 }
 ```
 
 :::info
-Note that the `city` uuid and `profile` uuid are required fields.
+Note that the `city` uuid, `organizationType` uuid and `user` uuid are required fields.
 :::
