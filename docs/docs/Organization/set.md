@@ -3,8 +3,8 @@
 This mutation allows to update an organization.
 
 ``` graphql
-mutation NewOrganization($data: NewOrganizationInput!) {
-  newOrganization(data: $data) {
+mutation UpdateOrganization($data: UpdateOrganizationInput!) {
+  updateOrganization(data: $data) {
     uuid
     createdAt
     updatedAt
