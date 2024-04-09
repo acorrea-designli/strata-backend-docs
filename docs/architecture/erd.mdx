@@ -179,14 +179,13 @@ Role ||--|{ User
 
 User ||-right-|{ Profile
 
-Organization ||-down-|{ PaymentMethod
+OrganizationProduct }|-down-|| PaymentMethod
 
 Organization ||-up-|{ OrganizationOnboarding
 OnboardingStep ||-right-|{ OrganizationOnboarding
 User ||-down-|{ OrganizationOnboarding
 
 OrganizationType ||-up-|{ Organization
-OrganizationType -l[hidden]- PaymentMethod
 
 Organization ||-right-|{ OrganizationLocation
 City ||--|{ Organization
@@ -201,7 +200,6 @@ State ||-left-|{ County
 County ||-left-|{ City
 
 
-Subscription }|-right-|| PaymentMethod
 
 Organization ||-left-|{ OrganizationProduct
 Product ||-right-|{ OrganizationProduct
