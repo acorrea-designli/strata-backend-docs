@@ -175,6 +175,26 @@ entity OrganizationOnboarding #LightBlue {
 	* UserID : int
 }
 
+entity Agreement {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* documentID : int
+	* status : string
+}
+
+entity BillingInfo {
+	* id : int <<generated>>
+	* uuid : string
+	--
+	* firstName : string
+	* lastName : string
+	fullName : string
+	* email : string
+	* phone : string
+	* address : string
+}
+
 Role ||--|{ User
 
 User ||-right-|{ Profile
@@ -203,6 +223,8 @@ County ||-left-|{ City
 
 Organization ||-left-|{ OrganizationProduct
 Product ||-right-|{ OrganizationProduct
+Agreement ||-down-|{ OrganizationProduct
+BillingInfo ||-down-|{ OrganizationProduct
 
 
 Subscription ||-up-|{ OrganizationProduct
