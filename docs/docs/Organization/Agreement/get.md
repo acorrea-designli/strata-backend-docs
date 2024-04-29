@@ -1,4 +1,14 @@
-# Query Agreement and Billing
+# Get Agreement
+
+## Download Agreement pdf
+
+To get the agreement pdf, the following rest endpoint can be used.
+
+```http
+GET /ds/:documentID
+```
+
+## Query Agreement and Billing
 
 To query an agreement and its billing, you can use the following query.
 
