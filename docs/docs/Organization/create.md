@@ -52,7 +52,10 @@ mutation NewOrganization($data: NewOrganizationInput!) {
     "subscriberPhone": "",
     "subscriberTitle": "",
     "user": {
-      "uuid": ""
+      "uuid": "" // sales lead
+    },
+    "stepUser": {
+      "uuid": "" // user who is creating the organization
     },
     "city": {
       "uuid": ""
@@ -65,5 +68,5 @@ mutation NewOrganization($data: NewOrganizationInput!) {
 ```
 
 :::info
-Note that the `city` uuid, `organizationType` uuid and `user` uuid are required fields.
+Note that the `city` uuid, `organizationType` uuid, `stepUser` uuid and `user` uuid are required fields.
 :::
