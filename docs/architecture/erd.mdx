@@ -1,205 +1,292 @@
 # ERD
 
-The ERD (Entity-Relationship Diagram) is a visual representation of the database schema. It shows the tables and the relationships between them.
-
-```plantuml Your title
-@startuml RelatableERD
-
+```plantuml second diagram
 skinparam linetype ortho
 
-entity User  {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* email : string
-	--
-	* profileID : int
-	* userTypeID : int
-	* LoisProfileID : int
-}
-
-entity Profile {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* first_name : string
-	* last_name : string
-	* full_name : string
-	phone : string
-	address : string
-	zip : string
-	city : string
-	state : string
-	country : string
-	--
-	* OrganizationID : string
-}
-
-entity Organization {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	description : string
-	* address : string
-	* zip : string
-	phone : string
-	exension : string
-	mobile : string
-	--
-	* OrganizationTypeID : int
-	* CityID : int
-}
-
-entity City {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* metadata : string
-	--
-	* countyID : int	
-}
-
-entity County {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-	--
-	* stateID : int
-}
-
-entity State {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* metadata : string
-	--
-	* countryID : int
-}
-
-entity Country {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* metadata : string
-}
-
-entity OrganizationLocation #LightBlue {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* OrganizationID : int
-	* CountyID : int
-}
-
-entity OrganizationType {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-}
-
-entity Role {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-	--
-	* UserID : int
-}
-
-entity Webhook {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* url : string
-	* path : string
-	* method : string
-	* event : string
-}
-
-entity Subscription {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* stripe_id : string
-}
-
-entity PaymentMethod {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* stripe_id : string
-}
-
-entity Product {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name
-	* description
-	* displayName
-	* stripe_id : string
-}
-
-entity OnboardingStep {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* name : string
-	* description : string
-}
-
-entity OrganizationProduct #LightBlue { 
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* UserID : int
-	* ProductID : int
-	* FieldValueID : int
-}
-
-entity OrganizationOnboarding #LightBlue {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* OrganizationID : int
-	* OnboardingStepID : int
-	* UserID : int
-}
-
 entity Agreement {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* documentID : int
-	* status : string
+  * id: Int
+  * uuid: String
+  * documentID: String
+  * status: String
+  message: String?
+  * organizationProducts: OrganizationProduct[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
 }
 
 entity BillingInfo {
-	* id : int <<generated>>
-	* uuid : string
-	--
-	* firstName : string
-	* lastName : string
-	fullName : string
-	* email : string
-	* phone : string
-	* address : string
+  * id: Int
+  * uuid: String
+  * firstName: String
+  * lastName: String
+  fullName: String?
+  * email: String
+  * phone: String
+  * address: String
+  * organizationProducts: OrganizationProduct[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity City {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  county: County?
+  countyId: Int?
+  * organizations: Organization[]
+  * organizationLocations: OrganizationLocation[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity County {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  state: State?
+  stateId: Int?
+  * citys: City[]
+  * organizationLocations: OrganizationLocation[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Country {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  * states: State[]
+  * organizationLocations: OrganizationLocation[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Contract {
+  * id: Int
+  * uuid: String
+  * basePrice: Float
+  * discount: Float
+  finalPrice: Float?
+  * term: Int
+  * details: String
+  stripeID: String?
+  * organizationProducts: OrganizationProduct[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Payment {
+  * id: Int
+  * uuid: String
+  status: String?
+  message: String?
+  lastPaymentDate: String?
+  nextPaymentDate: String?
+  * organizationProducts: OrganizationProduct[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity OnboardingStep {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  metadata: String?
+  * organizationOnboardings: OrganizationOnboarding[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Organization {
+  * id: Int
+  * uuid: String
+  * subscriberFirstName: String
+  * subscriberLastName: String
+  * subscriberTitle: String
+  * subscriberEmail: String
+  * subscriberPhone: String
+  * organizationName: String
+  organizationDescription: String?
+  * organizationPhone: String
+  * address: String
+  city: City?
+  cityId: Int?
+  organizationType: OrganizationType?
+  organizationTypeId: Int?
+  user: User?
+  userId: Int?
+  * organizationLocations: OrganizationLocation[]
+  * organizationOnboardings: OrganizationOnboarding[]
+  * organizationProducts: OrganizationProduct[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity OrganizationType {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  * organizations: Organization[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity OrganizationLocation #LightBlue {
+  * id: Int
+  * uuid: String
+  organization: Organization?
+  organizationId: Int?
+  city: City?
+  cityId: Int?
+  county: County?
+  countyId: Int?
+  state: State?
+  stateId: Int?
+  country: Country?
+  countryId: Int?
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity OrganizationOnboarding #LightBlue {
+  * id: Int
+  * uuid: String
+  organization: Organization?
+  organizationId: Int?
+  user: User?
+  userId: Int?
+  onboardingStep: OnboardingStep?
+  onboardingStepId: Int?
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity OrganizationProduct #LightBlue {
+  * id: Int
+  * uuid: String
+  organization: Organization?
+  organizationId: Int?
+  product: Product?
+  productId: Int?
+  contract: Contract?
+  contractId: Int?
+  payment: Payment?
+  paymentId: Int?
+  agreement: Agreement?
+  agreementId: Int?
+  billingInfo: BillingInfo?
+  billingInfoId: Int?
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Product {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  * displayName: String
+  stripeID: String?
+  * organizationProducts: OrganizationProduct[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Profile {
+  * id: Int
+  * uuid: String
+  * firstName: String
+  * lastName: String
+  * fullName: String
+  phone: String?
+  address: String?
+  zip: String?
+  city: String?
+  state: String?
+  country: String?
+  user: User?
+  userId: Int?
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Role {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  * users: User[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity State {
+  * id: Int
+  * uuid: String
+  * name: String
+  * description: String
+  country: Country?
+  countryId: Int?
+  * countys: County[]
+  * organizationLocations: OrganizationLocation[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity User {
+  * id: Int
+  * uuid: String
+  * email: String
+  resetPasswordToken: String?
+  * isActive: Boolean
+  role: Role?
+  roleId: Int?
+  * profiles: Profile[]
+  * organizationOnboardings: OrganizationOnboarding[]
+  * organizations: Organization[]
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
+}
+
+entity Webhook {
+  * id: Int
+  * uuid: String
+  * url: String
+  * path: String
+  * event: String
+  * method: String
+  * createdAt: DateTime
+  updatedAt: DateTime?
+  deletedAt: DateTime?
 }
 
 Role ||--|{ User
 
 User ||-right-|{ Profile
-
-OrganizationProduct }|-down-|| PaymentMethod
 
 Organization ||-up-|{ OrganizationOnboarding
 OnboardingStep ||-right-|{ OrganizationOnboarding
@@ -225,8 +312,8 @@ Organization ||-left-|{ OrganizationProduct
 Product ||-right-|{ OrganizationProduct
 Agreement ||-down-|{ OrganizationProduct
 BillingInfo ||-down-|{ OrganizationProduct
-
-
-Subscription ||-up-|{ OrganizationProduct
+Contract ||-up-|{ OrganizationProduct
+Payment ||-up-|{ OrganizationProduct
 
 ```
+
