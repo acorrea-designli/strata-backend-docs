@@ -1,0 +1,8 @@
+# Components and connectors
+
+The backend consist of a REST and a GraphQL API, both of them are hosted on AWS Lambda. The REST API is used for interoperability with other services, while the GraphQL API is used for the communication with the frontend.
+
+Aditionally, there is a SQS queue and a secondary lambda function that is used to process background tasks as sending emails or Stripe and DocuSign status updates. 
+All data is persisted in a PostgreSQL database hosted on AWS RDS. 
+
+![C&C](https://drive.google.com/thumbnail?id=1uTLT37Tx1hfeGBakv0hcKTTcbkBI78Hx&sz=w1000)
